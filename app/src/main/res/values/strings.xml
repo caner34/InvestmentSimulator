@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">InvestmentSimulator</string>
+    <string name="message_display_stock_price">Price will be displayed here!</string>
+    <string name="select_a_stock_please">Please select a stock to display please...</string>
+</resources>
