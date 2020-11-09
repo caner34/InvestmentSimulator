@@ -8,7 +8,9 @@
             <item android:id="@+id/financial_news_menu"
                 android:title="@string/toolbar_activity_financial_news"
                 app:showAsAction="ifRoom" />
-
+            <item android:id="@+id/foreign_exchange_menu"
+                android:title="@string/toolbar_foreign_exchange_menu"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 </menu>

@@ -4,4 +4,5 @@
     <string name="select_a_stock_please">Please select a stock to display please...</string>
     <string name="toolbar_title">Menu</string>
     <string name="toolbar_activity_financial_news">News</string>
+    <string name="toolbar_foreign_exchange_menu">Foreign Exchange</string>
 </resources>

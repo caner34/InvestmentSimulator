@@ -2,40 +2,74 @@ package com.finance.portfollio;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.finance.portfollio.utils.AsyncTaskHelper;
 import com.finance.portfollio.utils.CommonUtils;
 import com.finance.portfollio.utils.GlobalVariables;
+import com.finance.portfollio.utils.NetworkChangeReceiver;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Arrays;
 
 
 public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+    Context context = this;
     public MaterialToolbar toolbar_menu;
     TextView textViewPrice;
     Spinner spinnerStocks;
     ArrayAdapter arrayAdapterStocks;
 
+    NetworkChangeReceiver receiverNetwork;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price_display);
+        if(!(ContextCompat.checkSelfPermission(PriceDisplayActivity.this, Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_GRANTED)){
+            requestAccessNetworkState();
+        }
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiverNetwork = new NetworkChangeReceiver();
+        registerReceiver(receiverNetwork, filter);
 
         InitializeComponents();
 
         HandleSpinners();
 
         SetOnClickListeners();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!networkIsOn()){
+            Toast.makeText(context, "Connection fail!!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiverNetwork);
     }
 
     private void HandleSpinners() {
@@ -92,7 +126,25 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
                 Intent intent = new Intent(PriceDisplayActivity.this, FinancialNewsActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.foreign_exchange_menu:
+                Intent intent_foreign = new Intent(PriceDisplayActivity.this, ForeignExchangeActivity.class);
+                startActivity(intent_foreign);
+                break;
         }
         return false;
+    }
+
+    boolean networkIsOn(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isAvailable()
+                && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    private void requestAccessNetworkState(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_NETWORK_STATE)){
+            ActivityCompat.requestPermissions(PriceDisplayActivity.this,new String[] {Manifest.permission.ACCESS_NETWORK_STATE}, MY_PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE);
+        }else{
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE}, MY_PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE);
+        }
     }
 }
