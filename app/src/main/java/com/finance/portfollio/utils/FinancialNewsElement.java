@@ -9,5 +9,16 @@ public class FinancialNewsElement {
         this.link = link;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLink() {
+        return link;
+    }
 
 }

@@ -1,8 +1,11 @@
 package com.finance.portfollio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,12 +15,13 @@ import android.widget.TextView;
 import com.finance.portfollio.utils.AsyncTaskHelper;
 import com.finance.portfollio.utils.CommonUtils;
 import com.finance.portfollio.utils.GlobalVariables;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Arrays;
 
 
-public class PriceDisplayActivity extends AppCompatActivity {
-
+public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+    public MaterialToolbar toolbar_menu;
     TextView textViewPrice;
     Spinner spinnerStocks;
     ArrayAdapter arrayAdapterStocks;
@@ -65,6 +69,7 @@ public class PriceDisplayActivity extends AppCompatActivity {
 
     private void SetOnClickListeners()
     {
+        toolbar_menu.setOnMenuItemClickListener(this);
         /*buttonDisplayPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +80,19 @@ public class PriceDisplayActivity extends AppCompatActivity {
 
     private void InitializeComponents()
     {
+        toolbar_menu = findViewById(R.id.activity_price_display_toolbar);
         textViewPrice = findViewById(R.id.textViewPrice);
         spinnerStocks = findViewById(R.id.spinnerStocks);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.financial_news_menu:
+                Intent intent = new Intent(PriceDisplayActivity.this, FinancialNewsActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return false;
     }
 }
