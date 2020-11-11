@@ -4,10 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ForeignExchangeActivity">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello world" />
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:text="1 euro = " />
+    <TextView
+        android:id="@+id/rates"
+        android:layout_width="match_parent"
+        android:textSize="50sp"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/country_spinner"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_a_country_please"/>
 </LinearLayout>

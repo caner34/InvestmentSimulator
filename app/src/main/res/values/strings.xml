@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">InvestmentSimulator</string>
     <string name="message_display_stock_price">Price will be displayed here!</string>
+    <string name="message_display_foreign_rates">Rates will be displayed here!</string>
     <string name="select_a_stock_please">Please select a stock to display please...</string>
+    <string name="select_a_country_please">Please select a country to display rate please...</string>
     <string name="toolbar_title">Menu</string>
     <string name="toolbar_activity_financial_news">News</string>
     <string name="toolbar_foreign_exchange_menu">Foreign Exchange</string>
