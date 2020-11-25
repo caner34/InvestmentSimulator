@@ -9,6 +9,7 @@ import com.finance.portfollio.utils.GlobalVariables;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -49,19 +50,19 @@ public class ExchangeRatesRetriever extends AsyncTask<String, Integer, JSONObjec
     @Override
     protected JSONObject doInBackground(String... strings) {
         Log.e(FOREIGN_EXCHANGE_LOG_TAG, "DO IN BACKGROUND FOREIGN_EXCHANGE");
-        HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL(strings[0]);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            jsonObject = readStream(in);
+            String response = Jsoup.connect(strings[0])
+                    .ignoreContentType(true) // To Get JSON DATA
+                    .get()
+                    .text();
+
+            jsonObject = new JSONObject(response);
         } catch(Exception e) {
             e.printStackTrace();
-        } finally {
-            urlConnection.disconnect();
         }
-        System.out.println("Foreign Exchange Rates:");
-        System.out.println(jsonObject.toString());
+        
+        Log.e(FOREIGN_EXCHANGE_LOG_TAG,"Foreign Exchange Rates:");
+        Log.e(FOREIGN_EXCHANGE_LOG_TAG,jsonObject.toString());
         return jsonObject;
     }
 
@@ -84,22 +85,5 @@ public class ExchangeRatesRetriever extends AsyncTask<String, Integer, JSONObjec
         }
         progressDialog.dismiss();
     }
-
-    private JSONObject readStream(InputStream is) throws JSONException {
-        JSONObject jsonObject;
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while(i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            jsonObject = new JSONObject(bo.toString());
-            return jsonObject;
-        } catch (Exception e) {
-            return new JSONObject("Error");
-        }
-    }
-
 
 }
