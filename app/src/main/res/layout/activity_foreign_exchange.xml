@@ -6,21 +6,78 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@color/layout_background_color"
     tools:context=".ForeignExchangeActivity">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:text="1 euro = " />
-    <TextView
-        android:id="@+id/rates"
+        android:layout_height="50dp"
+        android:background="@drawable/layout_background"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:text="@string/tv_base_text"/>
+        <Spinner
+            android:id="@+id/base_country_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:prompt="@string/base_country_spinner_prompt_text"/>
+    </LinearLayout>
+    <View
         android:layout_width="match_parent"
-        android:textSize="50sp"
-        android:layout_height="wrap_content"/>
-    <Spinner
-        android:id="@+id/country_spinner"
-        android:layout_marginTop="40dp"
+        android:layout_height="1px"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/select_a_country_please"/>
+        android:layout_height="50dp"
+        android:background="@drawable/layout_background"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:text="@string/tv_amount_text"/>
+        <EditText
+            android:id="@+id/edt_txt_amount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColorHint="@color/edit_text_hint_color"
+            android:hint="@string/edt_txt_amount_hint_text"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/layout_background"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:text="@string/tv_rate_text"/>
+        <Spinner
+            android:id="@+id/rate_country_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:prompt="@string/rate_country_spinner_prompt_text"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/foreign_exchange_calculate_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/foreign_exchange_calculate_button_text"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/CalculateButton"/>
 </LinearLayout>

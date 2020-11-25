@@ -7,4 +7,11 @@
     <string name="toolbar_title">Menu</string>
     <string name="toolbar_activity_financial_news">News</string>
     <string name="toolbar_foreign_exchange_menu">Foreign Exchange</string>
+    <string name="tv_base_text">From:</string>
+    <string name="tv_amount_text">Amount:</string>
+    <string name="edt_txt_amount_hint_text">Please enter amount.</string>
+    <string name="tv_rate_text">To:</string>
+    <string name="base_country_spinner_prompt_text">FROM</string>
+    <string name="rate_country_spinner_prompt_text">TO</string>
+    <string name="foreign_exchange_calculate_button_text">CALCULATE</string>
 </resources>

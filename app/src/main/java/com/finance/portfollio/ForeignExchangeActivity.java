@@ -1,62 +1,95 @@
 package com.finance.portfollio;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.finance.portfollio.AsyncTasks.ExchangeRatesRetriever;
-import com.finance.portfollio.utils.AsyncTaskHelper;
 import com.finance.portfollio.utils.CommonUtils;
 import com.finance.portfollio.utils.GlobalVariables;
 
 import java.util.Arrays;
 
 public class ForeignExchangeActivity extends AppCompatActivity {
-    TextView textViewRates;
-    Spinner spinnerCountries;
-    ArrayAdapter arrayAdapterCountries;
+    Context context = this;
+    Button foreign_exchange_calculate_button;
+    Spinner base_country_spinner;
+    Spinner rate_country_spinner;
+    ArrayAdapter arrayAdapterBaseCountries;
+    ArrayAdapter arrayAdapterRateCountries;
+    EditText edt_txt_amount;
 
-    private void InitializeComponents()
-    {
-        textViewRates = findViewById(R.id.rates);
-        spinnerCountries = findViewById(R.id.country_spinner);
+    String from_country;
+    String to_country;
+    double from_rate = -1;
+    double to_rate = -1;
+
+
+    public void init() {
+        edt_txt_amount = findViewById(R.id.edt_txt_amount);
+
+        foreign_exchange_calculate_button = findViewById(R.id.foreign_exchange_calculate_button);
+        foreign_exchange_calculate_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(from_rate == -1 || to_rate == -1) {
+                    Toast.makeText(context, "Select Countries!!!", Toast.LENGTH_SHORT).show();
+                } else if(edt_txt_amount.getText().toString().isEmpty()) {
+                    Toast.makeText(context, "Enter Amount!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    double ratio_base = to_rate / from_rate;
+                    double amount = Double.parseDouble(edt_txt_amount.getText().toString());
+                    double user_ratio = ratio_base * amount;
+                    AlertDialog.Builder adb = new AlertDialog.Builder(context);
+                    @SuppressLint("DefaultLocale") String result_title = String.format("%.2f", (ratio_base));
+                    @SuppressLint("DefaultLocale") String result_message = String.format("%.2f", (user_ratio));
+                    adb.setTitle("1" + from_country + " = " + result_title + " " + to_country);
+                    adb.setMessage(amount + " " + from_country + " = "  + result_message + " " + to_country);
+                    adb.setPositiveButton("OK", null);
+                    adb.show();
+                }
+            }
+        });
+        base_country_spinner = findViewById(R.id.base_country_spinner);
+        rate_country_spinner = findViewById(R.id.rate_country_spinner);
+
+        handleSpinnerCountries();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foreign_exchange);
-        InitializeComponents();
-        HandleSpinners();
+        init();
         new ExchangeRatesRetriever(this).execute("https://api.exchangeratesapi.io/latest");
-
     }
 
-    private void HandleSpinners() {
-        HandleSpinnerCountries();
-    }
-
-    private void HandleSpinnerCountries()
+    private void handleSpinnerCountries()
     {
-        arrayAdapterCountries = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CommonUtils.GetSpinnerStringArrayWithHeaderTitle(spinnerCountries, Arrays.asList(GlobalVariables.CountryCodes), ""));
-        spinnerCountries.setAdapter(arrayAdapterCountries);
-        spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        arrayAdapterBaseCountries = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CommonUtils.GetSpinnerStringArrayWithHeaderTitle(base_country_spinner, Arrays.asList(GlobalVariables.CountryCodes), ""));
+        base_country_spinner.setAdapter(arrayAdapterBaseCountries);
+        base_country_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == 0)
                 {
-                    textViewRates.setText(R.string.message_display_foreign_rates);
+                    from_rate = -1;
                 }
                 else
                 {
-                    String rate = String.valueOf(GlobalVariables.CountryRates[i-1]);
-                    rate = rate + " " + GlobalVariables.CountryCodes[i-1];
-                    textViewRates.setText(rate);
+                    from_rate = GlobalVariables.CountryRates[i-1];
+                    from_country = GlobalVariables.CountryCodes[i-1];
                 }
             }
 
@@ -65,6 +98,28 @@ public class ForeignExchangeActivity extends AppCompatActivity {
 
             }
         });
+        arrayAdapterRateCountries = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CommonUtils.GetSpinnerStringArrayWithHeaderTitle(rate_country_spinner, Arrays.asList(GlobalVariables.CountryCodes), ""));
+        rate_country_spinner.setAdapter(arrayAdapterRateCountries);
+        rate_country_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0)
+                {
+                    to_rate = -1;
+                }
+                else
+                {
+                    to_rate = GlobalVariables.CountryRates[i-1];
+                    to_country = GlobalVariables.CountryCodes[i-1];
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
 }

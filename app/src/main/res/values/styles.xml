@@ -6,5 +6,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="CalculateButton" parent="ThemeOverlay.AppCompat">
+        <item name="colorOnPrimary">@color/layout_background_corner_color</item>
+        <item name="colorPrimaryVariant">@color/layout_background_corner_color</item>
+        <item name="colorPrimary">@color/layout_background_corner_color</item>
+    </style>
 </resources>
