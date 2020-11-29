@@ -9,6 +9,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.finance.portfollio.AsyncTasks.ExchangeRatesRetriever;
 import com.finance.portfollio.AsyncTasks.StockPriceRetriever;
 
 
@@ -48,8 +50,9 @@ public class AsyncTaskHelper {
 
     public static double GetConvertedRate(String from_country, String to_country, double amount)
     {
-        // TODO Caner retrieve the resulting value for ConvertedRate
-        return 1;
+        double result = amount * (GlobalVariables.CountryRates[CommonUtils.getIndexOfCurrencyCode(to_country)] /
+                GlobalVariables.CountryRates[CommonUtils.getIndexOfCurrencyCode(from_country)]);
+        return result;
     }
 
 }
