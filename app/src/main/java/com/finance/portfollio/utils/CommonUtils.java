@@ -22,7 +22,7 @@ public class CommonUtils
         List<String> result = new ArrayList<>();
 
         result.add(s.getPrompt().toString());
-
+        
         if(!additionalWarning.equals(""))
         {
             result.add(additionalWarning);
@@ -33,5 +33,11 @@ public class CommonUtils
             result.add(originalList.get(i));
         }
         return ((String[])result.toArray(new String[result.size()]));
+    }
+
+    public static int getIndexOfCurrencyCode()
+    {
+        // TODO Caner get the index of the currency code form global variables
+        return 1;
     }
 }

@@ -5,11 +5,12 @@ import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.finance.portfollio.AsyncTasks.StockPriceRetriever;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import com.finance.portfollio.AsyncTasks.StockPriceRetriever;
+
 
 public class AsyncTaskHelper {
 
@@ -43,6 +44,12 @@ public class AsyncTaskHelper {
         //TODO Caner Retrieve News Element Objects From The Source
 
         return result;
+    }
+
+    public static double GetConvertedRate(String from_country, String to_country, double amount)
+    {
+        // TODO Caner retrieve the resulting value for ConvertedRate
+        return 1;
     }
 
 }

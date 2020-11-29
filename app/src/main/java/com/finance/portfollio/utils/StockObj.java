@@ -9,6 +9,7 @@ import yahoofinance.YahooFinance;
 public class StockObj {
 
     BigDecimal price, change, peg, dividend;
+    double quantity;
     Stock stock;
 
     public StockObj(String stockCode)
