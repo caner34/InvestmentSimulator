@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import java.util.Arrays;
 
 
-public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener {
     Context context = this;
     public MaterialToolbar toolbar_menu;
     TextView textViewPrice;
@@ -38,6 +39,9 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
 
     NetworkChangeReceiver receiverNetwork;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE = 1;
+
+    Button price_display_sell_button;
+    Button price_display_buy_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,12 +108,9 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
     private void SetOnClickListeners()
     {
         toolbar_menu.setOnMenuItemClickListener(this);
-        /*buttonDisplayPrice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AsyncTaskHelper.DisplayStockPriceOnTextView(PriceDisplayActivity.this, getApplicationContext(), "INTC", textViewPrice);
-            }
-        });*/
+        price_display_sell_button.setOnClickListener(this);
+        price_display_buy_button.setOnClickListener(this);
+
     }
 
     private void InitializeComponents()
@@ -117,6 +118,22 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
         toolbar_menu = findViewById(R.id.activity_price_display_toolbar);
         textViewPrice = findViewById(R.id.textViewPrice);
         spinnerStocks = findViewById(R.id.spinnerStocks);
+        price_display_sell_button = findViewById(R.id.price_display_sell_button);
+        price_display_buy_button = findViewById(R.id.price_display_buy_button);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent_purchase = new Intent(PriceDisplayActivity.this, PurchaseActivity.class);
+        switch (v.getId()) {
+            case R.id.price_display_sell_button:
+                intent_purchase.putExtra("process", "sell");
+                break;
+            case R.id.price_display_buy_button:
+                intent_purchase.putExtra("process", "buy");
+                break;
+        }
+        startActivity(intent_purchase);
     }
 
     @Override
@@ -127,8 +144,14 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
                 startActivity(intent);
                 break;
             case R.id.foreign_exchange_menu:
-                Intent intent_foreign = new Intent(PriceDisplayActivity.this, ForeignExchangeActivity.class);
-                startActivity(intent_foreign);
+                if(networkIsOn()){
+
+                    Intent intent_foreign = new Intent(PriceDisplayActivity.this, ForeignExchangeActivity.class);
+                    startActivity(intent_foreign);
+
+                } else {
+                    Toast.makeText(context, "Connection fail!!!", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
         return false;

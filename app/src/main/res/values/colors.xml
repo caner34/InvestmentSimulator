@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F11111</color>
-    <color name="colorPrimaryDark">#F66262</color>
+    <color name="colorPrimaryDark">#F11111</color>
     <color name="colorAccent">#8F8F8F</color>
     <color name="colorBlack">#000000</color>
     
@@ -13,8 +13,14 @@
     <color name="black">#FF000000</color>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="layout_background_color">#2DE6AB</color>
-    <color name="layout_background_solid_color">#1FA177</color>
-    <color name="layout_background_corner_color">#156C50</color>
+    <color name="layout_background_color">#004D8F</color>
+    <color name="layout_background_solid_color">#004D8F</color>
+    <color name="layout_background_corner_color">#0072D5</color>
     <color name="edit_text_hint_color">#989898</color>
+    <color name="purchase_layout_background_color">#0072D5</color>
+    <color name="purchase_layout_tab_layout_background_color">#004D8F</color>
+    <color name="purchase_layout_tab_layout_text_color">#00AFAF</color>
+    <color name="purchase_layout_tab_layout_selected_text_color">#00FFFF</color>
+
+
 </resources>
