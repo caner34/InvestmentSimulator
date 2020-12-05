@@ -9,19 +9,20 @@ public class DB {
         PLEASE DO NOT FORGET TO INCREMENT THE DATABASE_VERSION IN CASE THE DB SCHEMA IS ALTERED
     */
 
-    public static abstract class AssetPortfolioTable implements BaseColumns
-    {
-        public static final String TABLE_NAME = "ASSET_PORTFOLIO";
-        public static final String COL_0_ASSET_CODE = "asset_code";
-        public static final String COL_1_ASSET_QUANTITY = "asset_quantity";
-    }
-    
     public static abstract class AssetInfoTable implements BaseColumns
     {
         public static final String TABLE_NAME = "ASSET_INFO";
         public static final String COL_0_ASSET_CODE = "asset_code";
         public static final String COL_1_ASSET_CATEGORY = "asset_category";
     }
+
+    public static abstract class AssetPortfolioTable implements BaseColumns
+    {
+        public static final String TABLE_NAME = "ASSET_PORTFOLIO";
+        public static final String COL_0_ASSET_CODE = "asset_code";
+        public static final String COL_1_ASSET_QUANTITY = "asset_quantity";
+    }
+
 
     public static abstract class StockTransactionsTable implements BaseColumns
     {
