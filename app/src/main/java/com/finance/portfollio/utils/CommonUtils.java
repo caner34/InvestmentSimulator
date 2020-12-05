@@ -35,9 +35,15 @@ public class CommonUtils
         return ((String[])result.toArray(new String[result.size()]));
     }
 
-    public static int getIndexOfCurrencyCode()
+    public static int getIndexOfCurrencyCode(String currencyCode)
     {
-        // TODO Caner get the index of the currency code form global variables
-        return 1;
+        for(int i = 0; i < GlobalVariables.CountryCodes.length; i++)
+        {
+            if (GlobalVariables.CountryCodes[i].equals(currencyCode))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
