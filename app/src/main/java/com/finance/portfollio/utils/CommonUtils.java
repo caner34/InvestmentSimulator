@@ -34,7 +34,7 @@ public class CommonUtils
         }
         return ((String[])result.toArray(new String[result.size()]));
     }
-    
+
     public static int getIndexOfCurrencyCode(String currencyCode)
     {
         for(int i = 0; i < GlobalVariables.CountryCodes.length; i++)
