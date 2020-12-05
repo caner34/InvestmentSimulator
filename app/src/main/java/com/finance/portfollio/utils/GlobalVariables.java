@@ -14,4 +14,19 @@ public class GlobalVariables
     {
         FINANCIAL_TIMES
     }
+
+    public enum TRANSACTION_TYPE {
+        BUY(0), SELL(1);
+
+        TRANSACTION_TYPE(int transaction_type) {
+            this.transaction_type = transaction_type;
+        }
+
+        private final int transaction_type;
+
+        public int getTransactionType() {
+            return transaction_type;
+        }
+    }
+
 }
