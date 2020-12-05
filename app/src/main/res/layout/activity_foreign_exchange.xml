@@ -25,11 +25,6 @@
             android:layout_height="50dp"
             android:prompt="@string/base_country_spinner_prompt_text"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -49,11 +44,6 @@
             android:hint="@string/edt_txt_amount_hint_text"
             android:inputType="numberDecimal"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
