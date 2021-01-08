@@ -22,5 +22,8 @@
     <color name="purchase_layout_tab_layout_text_color">#00AFAF</color>
     <color name="purchase_layout_tab_layout_selected_text_color">#00FFFF</color>
 
+    <color name="colorTheme6">#D65A07</color>
+    <color name="colorTheme10">#700627</color>
+
 
 </resources>

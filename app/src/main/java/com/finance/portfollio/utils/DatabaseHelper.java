@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "GlobalDB.db";
     // PLEASE DO NOT FORGET TO INCREMENT THE DATABASE_VERSION IN CASE THE DB SCHEMA IS ALTERED
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,8 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         db.execSQL("create table " + DB.AssetInfoTable.TABLE_NAME   + " (" + DB.AssetInfoTable.COL_0_ASSET_CODE   + " TEXT PRIMARY KEY," + DB.AssetInfoTable.COL_1_ASSET_CATEGORY + " TEXT)");
         db.execSQL("create table " + DB.AssetPortfolioTable.TABLE_NAME   + " (" + DB.AssetPortfolioTable.COL_0_ASSET_CODE   + " TEXT PRIMARY KEY," + DB.AssetPortfolioTable.COL_1_ASSET_QUANTITY + " REAL)");
-        db.execSQL("create table " + DB.StockTransactionsTable.TABLE_NAME   + " (" + DB.StockTransactionsTable.COL_0_TRANSACTION_ID   + " TEXT PRIMARY KEY AUTOINCREMENT,"+ DB.StockTransactionsTable.COL_1_ASSET_CODE   + " TEXT," + DB.StockTransactionsTable.COL_2_TRANSACTION_QUANTITY + " REAL," + DB.StockTransactionsTable.COL_3_TRANSACTION_UNIT_PRICE + " REAL," + DB.StockTransactionsTable.COL_4_TRANSACTION_TYPE + " INTEGER," + DB.StockTransactionsTable.COL_5_TRANSACTION_TIMESTAMP + " INTEGER)");
-        db.execSQL("create table " + DB.CurrencyTransactionsTable.TABLE_NAME   + " (" + DB.CurrencyTransactionsTable.COL_0_TRANSACTION_ID   + " TEXT PRIMARY KEY AUTOINCREMENT," + DB.CurrencyTransactionsTable.COL_1_CURRENCY_CODE_TO_BE_SOLD  + " TEXT," + DB.CurrencyTransactionsTable.COL_2_CURRENCY_CODE_TO_BE_BOUGHT   + " TEXT," + DB.CurrencyTransactionsTable.COL_3_TRANSACTION_QUANTITY + " REAL," + DB.CurrencyTransactionsTable.COL_4_TRANSACTION_UNIT_PRICE + " REAL," + DB.CurrencyTransactionsTable.COL_5_TRANSACTION_TYPE + " INTEGER," + DB.CurrencyTransactionsTable.COL_6_TRANSACTION_TIMESTAMP + " INTEGER)");
+        db.execSQL("create table " + DB.StockTransactionsTable.TABLE_NAME   + " (" + DB.StockTransactionsTable.COL_0_TRANSACTION_ID   + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ DB.StockTransactionsTable.COL_1_ASSET_CODE   + " TEXT," + DB.StockTransactionsTable.COL_2_TRANSACTION_QUANTITY + " REAL," + DB.StockTransactionsTable.COL_3_TRANSACTION_UNIT_PRICE + " REAL," + DB.StockTransactionsTable.COL_4_TRANSACTION_TYPE + " INTEGER," + DB.StockTransactionsTable.COL_5_TRANSACTION_TIMESTAMP + " INTEGER)");
+        db.execSQL("create table " + DB.CurrencyTransactionsTable.TABLE_NAME   + " (" + DB.CurrencyTransactionsTable.COL_0_TRANSACTION_ID   + " INTEGER PRIMARY KEY AUTOINCREMENT," + DB.CurrencyTransactionsTable.COL_1_CURRENCY_CODE_TO_BE_SOLD  + " TEXT," + DB.CurrencyTransactionsTable.COL_2_CURRENCY_CODE_TO_BE_BOUGHT   + " TEXT," + DB.CurrencyTransactionsTable.COL_3_TRANSACTION_QUANTITY + " REAL," + DB.CurrencyTransactionsTable.COL_4_TRANSACTION_UNIT_PRICE + " REAL," + DB.CurrencyTransactionsTable.COL_5_TRANSACTION_TYPE + " INTEGER," + DB.CurrencyTransactionsTable.COL_6_TRANSACTION_TIMESTAMP + " INTEGER)");
     }
 
     public void CreateAllVariablesEmpty(SQLiteDatabase db)

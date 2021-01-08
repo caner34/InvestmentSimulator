@@ -11,12 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class ExchangeRatesRetriever extends AsyncTask<String, Integer, JSONObject> {
     public static final String FOREIGN_EXCHANGE_LOG_TAG = "FOREIGN_EXCHANGE";
     JSONObject jsonObject;

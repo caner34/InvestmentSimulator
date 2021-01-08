@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PurchaseActivity"></activity>
+        <activity android:name=".PurchaseActivity"/>
         <activity android:name=".ForeignExchangeActivity" />
         <activity android:name=".FinancialNewsActivity" />
         <activity android:name=".PriceDisplayActivity">

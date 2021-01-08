@@ -1,5 +1,7 @@
 package com.finance.portfollio.utils;
 
+import org.jsoup.select.Elements;
+
 import java.util.Random;
 
 public class GlobalVariables
@@ -9,6 +11,7 @@ public class GlobalVariables
     public static boolean isRatesDownloaded = false;
     public static double[] CountryRates = new double[CountryCodes.length];
     public static Random r = new Random();
+    public static Elements FinancialNewsElements = new Elements();
 
     public enum FINANCIAL_NEWS_SOURCE
     {
