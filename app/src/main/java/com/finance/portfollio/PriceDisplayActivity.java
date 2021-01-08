@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finance.portfollio.AsyncTasks.FinancialNewsRetriever;
 import com.finance.portfollio.utils.AsyncTaskHelper;
 import com.finance.portfollio.utils.CommonUtils;
 import com.finance.portfollio.utils.GlobalVariables;
@@ -42,6 +44,8 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
 
     Button price_display_sell_button;
     Button price_display_buy_button;
+
+    String selected_stock_code = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +97,13 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
                 }
                 else
                 {
-                    // textViewPrice.setText(arrayAdapterStocks.getItem(i).toString());
                     AsyncTaskHelper.DisplayStockPriceOnTextView(PriceDisplayActivity.this, getApplicationContext(), arrayAdapterStocks.getItem(i).toString(), textViewPrice);
+                    selected_stock_code = arrayAdapterStocks.getItem(i).toString();
+
+                    if(selected_stock_code != null){
+                        Log.e("E", "stock code PriceDisplayActivity HandleSpinnerStocks");
+                        Log.e("E", arrayAdapterStocks.getItem(i).toString());
+                    }
                 }
             }
 
@@ -130,7 +139,13 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
                 intent_purchase.putExtra("process", "sell");
                 break;
             case R.id.price_display_buy_button:
-                intent_purchase.putExtra("process", "buy");
+                if(selected_stock_code != null){
+                    intent_purchase.putExtra("process", "buy");
+                    intent_purchase.putExtra("selected_stock_code", selected_stock_code);
+                } else {
+                    Toast.makeText(context, "Please select a stock code!!!", Toast.LENGTH_SHORT).show();
+                    Log.e("E", "stock code null PriceDisplayActivity");
+                }
                 break;
         }
         startActivity(intent_purchase);
@@ -140,15 +155,16 @@ public class PriceDisplayActivity extends AppCompatActivity implements Toolbar.O
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.financial_news_menu:
-                Intent intent = new Intent(PriceDisplayActivity.this, FinancialNewsActivity.class);
-                startActivity(intent);
+                if(networkIsOn()){
+                    new FinancialNewsRetriever(context).execute("https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms");
+                } else {
+                    Toast.makeText(context, "Connection fail!!!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.foreign_exchange_menu:
                 if(networkIsOn()){
-
                     Intent intent_foreign = new Intent(PriceDisplayActivity.this, ForeignExchangeActivity.class);
                     startActivity(intent_foreign);
-
                 } else {
                     Toast.makeText(context, "Connection fail!!!", Toast.LENGTH_SHORT).show();
                 }

@@ -36,7 +36,7 @@ public class DatabaseUtils {
     }
 
 
-    public String RetrieveAssetCategoryByAssetCode(String asset_code, SQLiteDatabase db)
+    public static String RetrieveAssetCategoryByAssetCode(String asset_code, SQLiteDatabase db)
     {
         String result = "";
         String whereclause = DB.AssetInfoTable.COL_0_ASSET_CODE + "=?";

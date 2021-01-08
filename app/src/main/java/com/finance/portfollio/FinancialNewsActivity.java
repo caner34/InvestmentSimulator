@@ -5,33 +5,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import com.finance.portfollio.ViewAdapters.FinancialNewsRecyclerViewAdapter;
-import com.finance.portfollio.utils.AsyncTaskHelper;
-import com.finance.portfollio.utils.FinancialNewsElement;
-import com.finance.portfollio.utils.GlobalVariables.FINANCIAL_NEWS_SOURCE;
-import java.util.List;
-
+import com.finance.portfollio.utils.GlobalVariables;
+import com.finance.portfollio.utils.RecyclerItemClickListener;
 
 public class FinancialNewsActivity extends AppCompatActivity {
     Context context = this;
     RecyclerView financial_news_recycler_view;
     FinancialNewsRecyclerViewAdapter financialNewsRecyclerViewAdapter;
 
-
     private void InitializeComponents()
     {
-        financial_news_recycler_view = findViewById(R.id.financial_news_recycler_view);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        financialNewsRecyclerViewAdapter = new FinancialNewsRecyclerViewAdapter(context);
+
+        financial_news_recycler_view = findViewById(R.id.financial_news_recycler_view);
         financial_news_recycler_view.setLayoutManager(llm);
-
-        List<FinancialNewsElement> financialNewsElementList = AsyncTaskHelper.GetFinancialNewsElementsList(FINANCIAL_NEWS_SOURCE.FINANCIAL_TIMES);
-
-        financialNewsRecyclerViewAdapter = new FinancialNewsRecyclerViewAdapter(context, financialNewsElementList);
         financial_news_recycler_view.setAdapter(financialNewsRecyclerViewAdapter);
+
     }
 
     @Override
@@ -39,7 +36,22 @@ public class FinancialNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_news);
         InitializeComponents();
-    }
 
+        financial_news_recycler_view.addOnItemTouchListener(new RecyclerItemClickListener(context,
+                financial_news_recycler_view,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        String url = GlobalVariables.FinancialNewsElements.get(position).select("link").text();
+                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                }));
+    }
 
 }

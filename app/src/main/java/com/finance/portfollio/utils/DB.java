@@ -37,7 +37,7 @@ public class DB {
 
     public static abstract class CurrencyTransactionsTable implements BaseColumns
     {
-        public static final String TABLE_NAME = "STOCK_TRANSACTIONS";
+        public static final String TABLE_NAME = "CURRENCY_TRANSACTIONS";
         public static final String COL_0_TRANSACTION_ID = "transaction_id";
         public static final String COL_1_CURRENCY_CODE_TO_BE_SOLD = "currency_code_to_be_sold";
         public static final String COL_2_CURRENCY_CODE_TO_BE_BOUGHT = "currency_code_to_be_bought";
@@ -46,7 +46,6 @@ public class DB {
         public static final String COL_5_TRANSACTION_TYPE = "transaction_type";
         public static final String COL_6_TRANSACTION_TIMESTAMP = "transaction_timestamp";
     }
-
 
 
 

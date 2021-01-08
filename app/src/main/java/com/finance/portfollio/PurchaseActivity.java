@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -20,8 +22,6 @@ import java.util.ArrayList;
 
 // -Sevket - Purchase Activity is a full-fledged activity which enables the user to purchase Ask/Bid (Sell/Puy) stocks and FOREX (foreign exchange).
 // -Sevket - Purchase Activity GUI can enable the user to switch between Buy and Sell Screens Dynamically
-// TODO -Sevket - Sell screen should display current stocks of the user to be sold on the market.
-// TODO -Sevket - Buy screen should be able to filter stocks by its sector.
 // TODO -Sevket - Bonus User might add some stocks to his/her favorites.
 public class PurchaseActivity extends AppCompatActivity {
     TabLayout purchase_tab_layout;
@@ -65,9 +65,18 @@ public class PurchaseActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String process = extras.getString("process");
+            String selected_stock_code = extras.getString("selected_stock_code");
             if(process.equals("buy")){
+                if(selected_stock_code != null){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("selected_stock_code", selected_stock_code);
+                    buyFragment.setArguments(bundle);
+                } else {
+                    Log.e("E", "stock code null purchase activity");
+                }
                 purchase_viewpager.setCurrentItem(0);
             } else if(process.equals("sell")){
+                sellFragment.setArguments(savedInstanceState);
                 purchase_viewpager.setCurrentItem(1);
             }
         }

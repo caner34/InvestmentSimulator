@@ -17,7 +17,13 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:text="ASSET TYPE"/>
+                android:text="ASSET CATEGORY:"/>
+            <TextView
+                android:id="@+id/tv_buy_frag_asset_category"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +34,13 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:text="ASSET NAME"/>
+                android:text="STOCK CODE"/>
+            <TextView
+                android:id="@+id/tv_buy_frag_stock_code"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +51,27 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:text="QUANTITY"/>
+                android:text="Amount Stock CODE"/>
+            <EditText
+                android:id="@+id/edt_buy_amount_stock_code"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/buy_btn_buy_frag"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="BUY"/>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
